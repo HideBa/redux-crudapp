@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-function App() {
+import "./index.css";
+import EventsIndex from "./components/events_index";
+import EventsNew from "./components/events_new";
+import EventsShow from "./components/events_show";
+// import registerServiceWorker from "./registerServiceWorker";
+import type { State } from "./types";
+import { Action } from "redux";
+import type { Store } from "./reducers";
+// type Store = {
+//   state: State;
+//   action: Action;
+// };
+const App = (store: any) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/events/new" component={EventsNew} />
+            <Route path="/events/:id" component={EventsShow} />
+            <Route exact path="/" component={EventsIndex} />
+            <Route exact path="/events" component={EventsIndex} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </MuiThemeProvider>
   );
-}
+};
 
 export default App;
