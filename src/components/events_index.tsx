@@ -14,17 +14,25 @@ import {
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import { Event } from "../types";
-import styled from "styled-components";
-import type { State } from "../index";
+import { State } from "../index";
+import Events from "material-ui/utils/events";
+import { Action, Dispatch } from "redux";
 
-export interface Props {
-  className?: string;
-  events?: Event[] | undefined;
-}
+// export interface Props {
+//   className?: string;
+//   events?: Event[] | undefined;
+// }
 
-const EventIndex: React.FC<Props> = ({ className, events }) => {
+// type OwnProps = {};
+
+type StateProps = Events;
+
+type DispatchProps = () => (dispatch: Dispatch<Action<any>>) => Promise<void>;
+
+type Props = StateProps & DispatchProps;
+const EventIndex: React.FC<Props> = ({ events }) => {
   useEffect(() => {
-    readEvents();
+    props.readEvents();
   });
   const renderEvents = () => {
     return _.map(events, event => {
@@ -63,10 +71,11 @@ const EventIndex: React.FC<Props> = ({ className, events }) => {
 };
 
 // const mapStateToProps = state => ({ events: state.events });
-// const mapDispatchToProps = { readEvents };
+const mapDispatchToProps = { readEvents };
 export default connect(
   (state: State) => ({
     events: state.events,
   }),
-  dispatch => ({ readEvents }),
+  mapDispatchToProps,
+  // dispatch => ({ readEvents }),
 )(EventIndex);

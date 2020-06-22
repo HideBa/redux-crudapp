@@ -9,9 +9,9 @@ import EventsIndex from "./components/events_index";
 import EventsNew from "./components/events_new";
 import EventsShow from "./components/events_show";
 // import registerServiceWorker from "./registerServiceWorker";
-import type { State } from "./types";
+// import { State } from "./types";
 import { Action } from "redux";
-import type { Store } from "./reducers";
+import { Store } from "./reducers";
 // type Store = {
 //   state: State;
 //   action: Action;
